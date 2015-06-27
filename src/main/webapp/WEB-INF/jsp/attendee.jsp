@@ -1,31 +1,41 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ZHY
-  Date: 22/06/2015
-  Time: 8:24 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<html>
-<head>
-    <title>Add attendee</title>
-    <link rel="stylesheet" href="/css/site.css">
-</head>
-<body>
-<h1>Add attendee</h1>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<div><a href="?language=en">English</a> | <a href="?language=es">Spanish</a></div>
-<div>
-    <form:form commandName="attendee">
-        <form:errors path="*" cssClass="errorblock" element="div" />
-        <div><label> <spring:message code="attendee.name" /> </label><form:input id="txtName" path="name" cssErrorClass="error"/></div>
-        <div><label> <spring:message code="attendee.email" /></label><form:input id="txtEmail" path="email" cssErrClass="error"/></div>
-        <div><label> <spring:message code="attendee.phone" /></label><form:input id="txtPhone" path="phone" cssErrClass="error"/></div>
-        <div><input type="submit" value="<spring:message code="attendee.add" />"></div>
+<t:page pageTitle="Add Attendee">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="clearfix">
+                <div class="pull-right">
+                    <a class="btn btn-default" href="?language=en">English</a> <a class="btn btn-default"
+                                                                                  href="?language=es">Spanish</a>
+                </div>
+            </div>
 
-    </form:form>
-</div>
-</body>
-</html>
+            <div class="row">
+                <div class="col-md-12">
+                    <form:form commandName="attendee">
+                        <form:errors path="*" cssClass="errorblock" element="div"/>
+
+                        <div class="form-group">
+                            <label> <spring:message code="attendee.name"/> </label>
+                            <form:input id="txtName" path="name" cssClass="form-control" cssErrorClass="error"/>
+                        </div>
+                        <div class="form-group">
+                            <label> <spring:message code="attendee.email"/></label>
+                            <form:input id="txtEmail" path="email" cssClass="form-control" cssErrClass="error"/></div>
+                        <div class="form-group">
+                            <label> <spring:message code="attendee.phone"/></label>
+                            <form:input id="txtPhone" path="phone" cssClass="form-control" cssErrClass="error"/>
+                        </div>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="attendee.add" />">
+
+                    </form:form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</t:page>
+

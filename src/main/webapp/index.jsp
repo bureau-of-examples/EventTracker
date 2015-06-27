@@ -8,11 +8,11 @@
     <%--we need to put bootstrap.min.css into the css folder to get intellisense for css class in IntelliJ.--%>
     <div class="row">
         <div class="col-md-12">
-            <ul>
-                <li><a href="event.html">Event</a></li>
-                <li><a href="attendee.html">Attendee</a></li>
-                <li><a href="greeting.html">Greeting</a></li>
-                <li><a href="showEvents.jsp">Report</a></li>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="event.html">Event</a></li>
+                <li class="list-group-item"><a href="attendee.html">Attendee</a></li>
+                <li class="list-group-item"><a href="greeting.html">Greeting</a></li>
+                <li class="list-group-item"><a href="showEvents.jsp">Report</a></li>
             </ul>
         </div>
 

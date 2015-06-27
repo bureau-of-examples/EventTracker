@@ -26,6 +26,7 @@
 
 
     <footer>
+        <hr>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <small>Demo source code: <a href="https://github.com/zhy2002/EventTracker">https://github.com/zhy2002/EventTracker</a></small>
