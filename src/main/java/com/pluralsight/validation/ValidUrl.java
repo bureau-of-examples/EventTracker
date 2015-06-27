@@ -3,6 +3,11 @@ package com.pluralsight.validation;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
+import java.util.regex.Pattern;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -21,4 +26,12 @@ public @interface ValidUrl {
     String host() default "";
 
     int port() default -1;
+
+    @Target({ METHOD, FIELD })
+    @Retention(RUNTIME)
+    @Documented
+    @interface List {
+
+        ValidUrl[] value();
+    }
 }

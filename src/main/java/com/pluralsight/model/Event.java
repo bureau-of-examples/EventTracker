@@ -2,13 +2,16 @@ package com.pluralsight.model;
 
 import com.pluralsight.validation.EventDuration;
 import com.pluralsight.validation.ObjectName;
+import com.pluralsight.validation.ValidEvent;
 import com.pluralsight.validation.ValidUrl;
+import com.pluralsight.validation.group.BusinessLogicGroup;
 
 import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@ValidEvent(groups = {BusinessLogicGroup.class})
 public class Event {
 
     private Long Id;
@@ -25,7 +28,12 @@ public class Event {
     @EventDuration
     private Integer duration; //duration in minutes
 
-    @ValidUrl(protocol = "http")
+
+
+    @ValidUrl.List({
+            @ValidUrl(protocol = "http"),
+            @ValidUrl(host = "localhost")
+    })
     private String url;
 
 
