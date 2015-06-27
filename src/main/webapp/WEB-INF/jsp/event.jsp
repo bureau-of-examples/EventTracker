@@ -71,6 +71,19 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-3"><label for="txtDuration">Website:</label></div>
+                    <div class="col-md-9">
+                        <form:input id="txtUrl" path="url" cssClass="form-control" cssErrorClass="error" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form:errors path="url" cssClass="error" element="div" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
                     <div class="col-md-12">
                         <input type="submit" class="btn btn-default" value="Enter event">
                     </div>

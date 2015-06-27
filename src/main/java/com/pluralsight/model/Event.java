@@ -2,6 +2,7 @@ package com.pluralsight.model;
 
 import com.pluralsight.validation.EventDuration;
 import com.pluralsight.validation.ObjectName;
+import com.pluralsight.validation.ValidUrl;
 
 import javax.validation.constraints.Min;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Event {
     @EventDuration
     private Integer duration; //duration in minutes
 
+    @ValidUrl(protocol = "http")
     private String url;
 
 
