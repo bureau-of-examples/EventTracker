@@ -9,3 +9,14 @@
     padding: 8px;
     margin: 16px;
 }
+
+.event-form {
+    padding: 2em;
+}
+
+.page-header.bg-success {
+    padding:1em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}

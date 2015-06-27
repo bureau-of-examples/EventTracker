@@ -6,13 +6,20 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 public class Attendee {
 
     @NotNull
     @Size(min=2, max = 30)
     private String name;
+
+    private Character gender;
+
+    @Past
+    private Date dateOfBirth;
 
     @NotEmpty
     @Email
@@ -52,5 +59,21 @@ public class Attendee {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Character getGender() {
+        return gender;
+    }
+
+    public void setGender(Character gender) {
+        this.gender = gender;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
