@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,7 +34,18 @@ public class BasePackageAdvice {
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(HttpServletRequest req, Exception ex){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("errorMessage", ex.getLocalizedMessage());
+        String message;
+        if(ex instanceof ConstraintViolationException){
+            message = "";
+            for(ConstraintViolation violation : ((ConstraintViolationException)ex).getConstraintViolations()) {
+                if(message.length() > 0)
+                    message += "; ";
+                message += violation.getMessage();
+            }
+        } else {
+            message = ex.getLocalizedMessage();
+        }
+        modelAndView.addObject("errorMessage", message);
         modelAndView.setViewName("errorPage");//cannot name this view 'error' as it conflicts some spring stuff
         return modelAndView;
     }

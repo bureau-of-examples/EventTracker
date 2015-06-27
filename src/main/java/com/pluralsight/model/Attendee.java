@@ -21,7 +21,7 @@ public class Attendee {
     @Past
     private Date dateOfBirth;
 
-    @NotEmpty
+    @NotEmpty(message = "Email is mandatory.")
     @Email
     private String email;
 

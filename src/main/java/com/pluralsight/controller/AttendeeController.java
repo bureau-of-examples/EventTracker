@@ -2,6 +2,8 @@ package com.pluralsight.controller;
 
 import com.pluralsight.model.Attendee;
 import com.pluralsight.model.Event;
+import com.pluralsight.service.AttendeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,19 +25,18 @@ public class AttendeeController {
         return "attendee";
     }
 
+    @Autowired
+    private AttendeeService attendeeService;
+
     @RequestMapping(value = "/attendee", method = RequestMethod.POST)
     public String attendee(@Valid @ModelAttribute Attendee attendee, BindingResult bindingResult, HttpSession session){
-
-        Event event = (Event)session.getAttribute("event");
-        if(event == null){
-            throw new RuntimeException("Event is not created yet.");
-        }
 
         if(bindingResult.hasErrors()){
             return "attendee";
         }
-        
-        event.getAttendees().add(attendee);
+
+        Event event = (Event)session.getAttribute("event");
+        attendeeService.addToEvent(attendee, event);
         return "redirect:index";
     }
 }
