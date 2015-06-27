@@ -24,6 +24,7 @@
 
     <jsp:doBody/>
 
+
     <footer>
         <small>Demo source code: <a href="https://github.com/zhy2002/EventTracker">https://github.com/zhy2002/EventTracker</a></small>
     </footer>

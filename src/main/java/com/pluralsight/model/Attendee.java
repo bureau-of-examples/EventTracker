@@ -1,6 +1,7 @@
 package com.pluralsight.model;
 
 
+import com.pluralsight.validation.ObjectName;
 import com.pluralsight.view.Phone;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,8 +13,7 @@ import java.util.Date;
 
 public class Attendee {
 
-    @NotNull
-    @Size(min=2, max = 30)
+    @ObjectName
     private String name;
 
     private Character gender;

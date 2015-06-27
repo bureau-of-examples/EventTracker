@@ -1,9 +1,9 @@
 package com.pluralsight.model;
 
 import com.pluralsight.validation.EventDuration;
+import com.pluralsight.validation.ObjectName;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Event {
 
     private Long Id;
 
-    @Size(min = 2, max = 20)
+    @ObjectName
     private String name;
 
 
