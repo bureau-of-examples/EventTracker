@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-md-3"><label for="txtName">Name:</label></div>
                     <div class="col-md-9">
-                        <form:input id="txtName" path="name" cssClass="form-control" cssErrorClass="error" />
+                        <form:input id="txtName" path="name" cssClass="form-control" />
                         <div class="row">
                             <div class="col-md-12">
                                 <form:errors path="name" cssClass="error" element="div" />
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-3"><label for="txtDate">Date:</label></div>
                     <div class="col-md-9">
-                        <form:input id="txtDate" path="date" cssClass="form-control" cssErrorClass="error" placeholder="${dateInputFormat}"  />
+                        <form:input id="txtDate" path="date" cssClass="form-control" placeholder="${dateInputFormat}"  />
                         <div class="row">
                             <div class="col-md-12">
                                 <form:errors path="date" cssClass="error" element="div" />
@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-md-3"><label for="txtLocation">Location:</label></div>
                     <div class="col-md-9">
-                        <form:input id="txtLocation" path="location" cssClass="form-control" cssErrorClass="error" />
+                        <form:input id="txtLocation" path="location" cssClass="form-control" />
                         <div class="row">
                             <div class="col-md-12">
                                 <form:errors path="location" cssClass="error" element="div" />
@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col-md-3"><label for="txtDuration">Duration:</label></div>
                     <div class="col-md-9">
-                        <form:input id="txtDuration" path="duration" cssClass="form-control" cssErrorClass="error" />
+                        <form:input id="txtDuration" path="duration" cssClass="form-control" />
                         <div class="row">
                             <div class="col-md-12">
                                 <form:errors path="duration" cssClass="error" element="div" />
@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="col-md-3"><label for="txtDuration">Website:</label></div>
                     <div class="col-md-9">
-                        <form:input id="txtUrl" path="url" cssClass="form-control" cssErrorClass="error" />
+                        <form:input id="txtUrl" path="url" cssClass="form-control"  />
                         <div class="row">
                             <div class="col-md-12">
                                 <form:errors path="url" cssClass="error" element="div" />
@@ -81,7 +81,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row">
                     <div class="col-md-12">

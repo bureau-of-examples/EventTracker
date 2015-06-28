@@ -20,14 +20,14 @@
 
                         <div class="form-group">
                             <label> <spring:message code="attendee.name"/> </label>
-                            <form:input id="txtName" path="name" cssClass="form-control" cssErrorClass="error"/>
+                            <form:input id="txtName" path="name" cssClass="form-control"/>
                         </div>
                         <div class="form-group">
                             <label> <spring:message code="attendee.email"/></label>
-                            <form:input id="txtEmail" path="email" cssClass="form-control" cssErrClass="error"/></div>
+                            <form:input id="txtEmail" path="email" cssClass="form-control"/></div>
                         <div class="form-group">
                             <label> <spring:message code="attendee.phone"/></label>
-                            <form:input id="txtPhone" path="phone" cssClass="form-control" cssErrClass="error"/>
+                            <form:input id="txtPhone" path="phone" cssClass="form-control"/>
                         </div>
                         <input type="submit" class="btn btn-default" value="<spring:message code="attendee.add" />">
 

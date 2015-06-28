@@ -4,6 +4,7 @@ import com.pluralsight.model.Attendee;
 import com.pluralsight.model.Event;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,16 +14,23 @@ import java.util.List;
 @SessionAttributes("event")
 public class EventsReportController {
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/events", method = RequestMethod.GET)
-    public @ResponseBody List<Event> getEvents(@ModelAttribute("event") Event event){
-        List<Event> result = new ArrayList<>();
-        Event fake1 = new Event();
-        fake1.setName("Fake event 1");
-        fake1.getAttendees().add(new Attendee("fake attendee 1", "fake1@event.com"));
-        fake1.getAttendees().add(new Attendee("fake attendee 2", "fake2@event.com"));
-        result.add(fake1);
+    public
+    @ResponseBody
+    List<Event> getEvents(@ModelAttribute("event") Event event, HttpSession session) {
 
-        result.add(event);
+        List<Event> result = new ArrayList<>();
+
+        List<Event> eventList = (List<Event>) session.getAttribute("eventList");
+        if (eventList != null) {
+            result.addAll(eventList);
+        }
+
+        if (event != null && !result.contains(event)) {
+            result.add(event);
+        }
+
         return result;
     }
 }

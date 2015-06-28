@@ -1,6 +1,7 @@
 <%@tag trimDirectiveWhitespaces="true" %>
 <%@ attribute name="pageTitle" required="false" %>
 <%@ attribute name="useJQuery" required="false" type="java.lang.Boolean" %>
+<%@ attribute name="useAngular" required="false" type="java.lang.Boolean" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +11,10 @@
 
     <%if(Boolean.TRUE.equals(useJQuery)){%>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <%}%>
+
+    <%if(Boolean.TRUE.equals(useAngular)){%>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <%}%>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +34,7 @@
         <hr>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <small>Demo source code: <a href="https://github.com/zhy2002/EventTracker">https://github.com/zhy2002/EventTracker</a></small>
+                <small>Demo Java web application - source code: <a href="https://github.com/zhy2002/EventTracker">https://github.com/zhy2002/EventTracker</a></small>
             </div>
         </div>
 

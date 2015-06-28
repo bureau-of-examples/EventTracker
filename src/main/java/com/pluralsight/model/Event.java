@@ -32,7 +32,7 @@ public class Event {
 
     @ValidUrl.List({
             @ValidUrl(protocol = "http"),
-            @ValidUrl(host = "localhost")
+            @ValidUrl(host = "baidu.com")
     })
     private String url;
 
