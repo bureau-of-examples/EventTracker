@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping
-public class HelloController {
+public class ForwardingController {
 
     @RequestMapping("/greeting")
     public String sayHello(Model model){
@@ -18,7 +18,8 @@ public class HelloController {
     }
 
     @RequestMapping("/index")
-    public String index(){
-        return "forward:index.jsp";
+    public String index(){//put index page in mvc framework to utilise i18n support.
+        return "index";
     }
+
 }

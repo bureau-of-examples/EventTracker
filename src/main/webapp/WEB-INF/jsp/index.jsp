@@ -23,7 +23,7 @@
                     <li class="list-group-item"><a href="event.html">Update current event</a></li>
                 </c:if>
                 <li class="list-group-item"><a href="attendee.html">Add attendee</a></li>
-                <li class="list-group-item"><a href="showEvents.jsp">View all events</a></li>
+                <li class="list-group-item"><a href="showEvents.html">View all events</a></li>
                     <%--<li class="list-group-item"><a href="greeting.html">Greeting</a></li>--%>
             </ul>
         </div>

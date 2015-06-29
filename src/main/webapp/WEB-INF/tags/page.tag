@@ -2,6 +2,7 @@
 <%@ attribute name="pageTitle" required="false" %>
 <%@ attribute name="useJQuery" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="useAngular" required="false" type="java.lang.Boolean" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,7 @@
 <div class="container">
 
     <div class="page-header bg-success">
-        <h2>Event Tracker <small>Spring MVC4 + Bean Validation demo webapp</small></h2>
+        <h2><spring:message code="appname" /> &nbsp; <small>Spring MVC4 + Bean Validation demo webapp</small></h2>
     </div>
 
     <jsp:doBody/>

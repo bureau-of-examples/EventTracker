@@ -78,4 +78,9 @@ public class EventController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "showEvents", method = RequestMethod.GET)
+    public String showEvents(){
+       return "showEvents";
+    }
+
 }
