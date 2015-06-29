@@ -29,3 +29,7 @@ footer{
 body{
     background-color: #f9f9f9;
 }
+
+form>.row {
+    margin-top: 0.5em;
+}

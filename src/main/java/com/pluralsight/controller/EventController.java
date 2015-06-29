@@ -25,7 +25,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping
-@SessionAttributes("event")
 public class EventController {
 
     @Autowired
@@ -33,33 +32,16 @@ public class EventController {
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/event", method = RequestMethod.GET)
-    public String displayEvent(Model model, @RequestParam(value = "add", required = false) Boolean addNew, HttpSession session) {
+    public String displayEvent(Model model, @RequestParam(value = "add", required = false) Boolean addNew) {
 
         boolean add = Boolean.TRUE.equals(addNew);
-
-        Event event = (Event) session.getAttribute("event");
+        Event event = eventService.getCurrent();
         if (event == null || add) {
-
-            if (add && event != null) { //this event goes to eventList in session.
-                List<Event> eventList = (List<Event>) session.getAttribute("eventList");
-                storeEvent(session, event, eventList);
-            }
-
-            event = eventService.create();
+            event = eventService.createNew();
         }
         model.addAttribute("event", event);
         return "event";
     }
-
-    private void storeEvent(HttpSession session, Event event, List<Event> eventList) {
-        if (eventList == null) {
-            eventList = Collections.synchronizedList(new ArrayList<Event>());
-            session.setAttribute("eventList", eventList);
-        }
-        if (!eventList.contains(event))
-            eventList.add(event);
-    }
-
 
     @Resource(name = "mvcValidator")
     private SpringValidatorAdapter mvcValidator;
@@ -77,28 +59,23 @@ public class EventController {
         if (bindingResult.hasErrors()) {
             return "event";
         }
+
+        eventService.saveEvent(event);
         return "redirect:index.html";
     }
 
     @RequestMapping(value = "/setCurrent", method = RequestMethod.POST)
     @SuppressWarnings("unchecked")
-    public String setCurrent(Model model, @RequestParam("eventId") int eventId, @ModelAttribute("event") Event event, HttpSession session) {
+    public String setCurrent(@RequestParam("eventId") int eventId) {
 
-        if (event != null && event.getId() == eventId) {
-            return "redirect:/";
-        }
-
-        List<Event> eventList = (List<Event>) session.getAttribute("eventList");
-        if (eventList != null) {
-            for (Event e : eventList) {
-                if (e.getId() == eventId) {
-                    storeEvent(session, event, eventList);
-                    model.addAttribute("event", e);
-                    return "redirect:/";
-                }
-            }
-        }
-
-        throw new RuntimeException("Event Id " + eventId + " is invalid.");
+        eventService.setCurrent(eventId);
+        return "redirect:/";
     }
+
+    @RequestMapping(value = "/deleteEvent", method = RequestMethod.POST)
+    public String deleteEvent(@RequestParam("eventId") int eventId){
+       eventService.deleteEvent(eventId);
+        return "redirect:/";
+    }
+
 }

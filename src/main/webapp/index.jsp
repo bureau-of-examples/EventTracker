@@ -1,6 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<c:set var="event" value="${sessionScope.event}" />
 
 <t:page pageTitle="Event Tracker">
 
@@ -9,7 +11,7 @@
         <div class="col-md-12">
             <ul class="list-group">
                 <li class="list-group-item"><a href="event.html?add=true">Add event</a></li>
-                <c:if test="${not empty(event)}">
+                <c:if test="${not empty(sessionScope.event)}">
                     <li class="list-group-item"><a href="event.html">Update current event</a></li>
                 </c:if>
                 <li class="list-group-item"><a href="attendee.html">Add attendee</a></li>
@@ -23,7 +25,7 @@
         <div class="col-md-12">
             <c:if test="${empty(event)}">
                 <div class="alert alert-info" role="alert">
-                    <span class="badge">!</span> Please create the event first.
+                    <span class="badge">!</span> Please create an event.
                 </div>
             </c:if>
         </div>
