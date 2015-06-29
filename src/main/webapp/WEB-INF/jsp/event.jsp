@@ -23,6 +23,7 @@
                     </div>
                 </div>
 
+                <form:input path="id" type="hidden" />
                 <div class="row">
                     <div class="col-md-3"><label for="txtName">Name:</label></div>
                     <div class="col-md-9">

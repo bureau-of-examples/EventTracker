@@ -18,7 +18,7 @@
                 <tbody>
                 <tr data-ng-repeat="event in events">
                     <td>{{event.name}}</td>
-                    <td>{{event.date}}</td>
+                    <td>{{event.date | date : 'dd/MM/yyyy hh:mm'}}</td>
                     <td>{{event.location}}</td>
                     <td>{{event.attendees.length}}</td>
                     <td>

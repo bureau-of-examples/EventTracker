@@ -6,6 +6,14 @@
 
 <t:page pageTitle="Event Tracker">
 
+    <div class="clearfix">
+        <div class="pull-right">
+            <a class="btn btn-default" href="?language=en">English</a> <a class="btn btn-default"
+                                                                          href="?language=es">Spanish</a>
+        </div>
+    </div>
+    <br>
+
     <%--we need to put bootstrap.min.css into the css folder to get intellisense for css class in IntelliJ.--%>
     <div class="row">
         <div class="col-md-12">

@@ -6,12 +6,6 @@
 <t:page pageTitle="Add Attendee">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="clearfix">
-                <div class="pull-right">
-                    <a class="btn btn-default" href="?language=en">English</a> <a class="btn btn-default"
-                                                                                  href="?language=es">Spanish</a>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-md-12">

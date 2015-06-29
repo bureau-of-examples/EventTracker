@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 @Service("eventService")
 public class EventServiceImpl implements EventService {
@@ -81,7 +78,9 @@ public class EventServiceImpl implements EventService {
             while (iterator.hasNext()){
                 Event e = iterator.next();
                 if(e.getId().equals(event.getId())){
+                    event.setAttendees(e.getAttendees());
                     iterator.set(event);
+                    session.setAttribute("event", event);
                     break;
                 }
             }
@@ -113,5 +112,13 @@ public class EventServiceImpl implements EventService {
         }
 
         throw new IllegalArgumentException("Event Id " + eventId + " is invalid.");
+    }
+
+    @Override
+    public List<Event> getAll() {
+        synchronized (listLock){
+            LinkedList<Event> eventList = getEvenTList();
+            return new ArrayList<>(eventList);
+        }
     }
 }
