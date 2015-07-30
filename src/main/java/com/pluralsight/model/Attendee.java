@@ -22,6 +22,7 @@ public class Attendee {
     private Date dateOfBirth;
 
     @NotEmpty(message = "Email is mandatory.")
+    @Size(min = 2)
     @Email
     private String email;
 
