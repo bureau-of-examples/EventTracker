@@ -1,10 +1,14 @@
 package com.pluralsight;
 
+import com.pluralsight.conversion.AttendeeFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 import java.util.Locale;
 
 @Configuration
@@ -29,13 +34,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         return viewResolver;
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/pdf/**").addResourceLocations("/WEB-INF/pdf/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
 
-
-    }
 
     @Bean
     public MessageSource messageSource(){
@@ -52,9 +51,24 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     }
 
     @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/pdf/**").addResourceLocations("/WEB-INF/pdf/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
+
+    }
+
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
         registry.addInterceptor(localeChangeInterceptor);//.addPathPatterns("*.html");
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+
+        registry.addFormatter(new AttendeeFormatter());
+
+        super.addFormatters(registry);
     }
 }

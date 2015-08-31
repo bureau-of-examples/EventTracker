@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -39,4 +40,18 @@ public class AttendeeController {
         attendeeService.addToEvent(attendee, event);
         return "redirect:index.html";
     }
+
+    @RequestMapping(value = "/attendee/test", method = {RequestMethod.GET})
+    public String testParse(){
+       return "test/parseAttendee";
+    }
+
+    @RequestMapping(value = "/attendee/test", method = {RequestMethod.POST})
+    public String testParse(Model model, @RequestParam("attendeeString") Attendee attendee){
+
+        model.addAttribute("attendee", attendee);
+        return "test/showAttendee";
+    }
+
+
 }
