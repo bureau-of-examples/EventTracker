@@ -1,9 +1,10 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<t:page pageTitle="All events" useAngular="true">
+<t:page pageTitle="All events" useAngular="true" useJQuery="true">
     <div class="row" data-ng-app="myApp">
         <div class="col-md-12" data-ng-controller="events">
 
             <p>Angular says: 1 + 1 = {{1+1}}</p>
+            <p>The last one is the current event.</p>
 
             <table class="table table-striped">
                 <thead>
@@ -17,12 +18,12 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="event in events">
-                    <td>{{event.name}}</td>
+                    <td>  {{event.name}} <span class="glyphicon glyphicon-arrow-left" data-ng-show="{{event.id == currentEventId}}"></span></td>
                     <td>{{event.date | date : 'dd/MM/yyyy hh:mm'}}</td>
                     <td>{{event.location}}</td>
                     <td>{{event.attendees.length}}</td>
                     <td>
-                        <form method="post" action="${pageContext.request.contextPath}/setCurrent" >
+                        <form method="post" action="${pageContext.request.contextPath}/setCurrent.html" >
                             <input type="hidden" name="eventId" value="{{event.id}}">
                             <button class="btn btn-primary btn-sm">Set as current</button>
                         </form>
@@ -32,6 +33,7 @@
                 </tbody>
             </table>
 
+
         </div>
 
         <script>
@@ -40,6 +42,8 @@
                         $http.get("/events.json").success(function (data) {
                             $scope.events = data;
                         });
+
+                        $scope.currentEventId = $("#input-current_event_id").val();
                     });
         </script>
     </div>
@@ -49,5 +53,7 @@
             <a href="${pageContext.request.contextPath}/" class="btn btn-default">Go back</a>
         </div>
     </div>
+
+    <input id="input-current_event_id" type="hidden" value="${currentEventId}">
 </t:page>
 

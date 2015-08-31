@@ -123,7 +123,7 @@
                                 </tr>
                                 <c:forEach items="${event.attendees}" var="attendee">
                                     <tr>
-                                        <td>${attendee.name}</td>
+                                        <td> <c:out value="${attendee.name}" /> </td>
                                         <td>${attendee.email}</td>
                                         <td>${attendee.phone}</td>
                                     </tr>

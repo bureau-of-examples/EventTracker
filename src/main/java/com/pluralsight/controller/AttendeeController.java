@@ -37,6 +37,6 @@ public class AttendeeController {
 
         Event event = (Event)session.getAttribute("event");
         attendeeService.addToEvent(attendee, event);
-        return "redirect:index";
+        return "redirect:index.html";
     }
 }

@@ -7,6 +7,7 @@ import com.pluralsight.validation.ValidUrl;
 import com.pluralsight.validation.group.BusinessLogicGroup;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ public class Event {
     @ObjectName
     private String name;
 
-
+    @NotNull
     private Date date;
 
     private String location;

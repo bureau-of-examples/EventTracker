@@ -46,9 +46,6 @@ public class EventController {
     @Resource(name = "mvcValidator")
     private SpringValidatorAdapter mvcValidator;
 
-//    @Autowired
-//    private ApplicationContext applicationContext;
-
     @RequestMapping(value = "/event", method = RequestMethod.POST)
     public String displayEvent(@Valid @ModelAttribute("event") Event event, BindingResult bindingResult) {
 
@@ -73,14 +70,23 @@ public class EventController {
     }
 
     @RequestMapping(value = "/deleteEvent", method = RequestMethod.POST)
-    public String deleteEvent(@RequestParam("eventId") int eventId){
-       eventService.deleteEvent(eventId);
+    public String deleteEvent(@RequestParam("eventId") int eventId) {
+        eventService.deleteEvent(eventId);
         return "redirect:/";
     }
 
     @RequestMapping(value = "showEvents", method = RequestMethod.GET)
-    public String showEvents(){
-       return "showEvents";
+    public String showEvents(Model model) {
+        Event currentEvent = eventService.getCurrent();
+        Long currentEventId;
+        if(currentEvent == null){
+          currentEventId = 0L;
+        } else {
+            currentEventId = currentEvent.getId();
+        }
+
+        model.addAttribute("currentEventId", currentEventId);
+        return "showEvents";
     }
 
 }

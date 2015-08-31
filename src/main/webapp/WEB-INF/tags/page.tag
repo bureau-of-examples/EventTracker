@@ -25,17 +25,17 @@
 <div class="container">
 
     <div class="page-header bg-success">
-        <h2><spring:message code="appname" /> &nbsp; <small>Spring MVC4 + Bean Validation demo webapp</small></h2>
+        <h2><spring:message code="appname" /> &nbsp; <small><spring:message code="project.name" /></small></h2>
     </div>
 
     <jsp:doBody/>
-
 
     <footer>
         <hr>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <small>Demo Java web application - source code: <a href="https://github.com/zhy2002/EventTracker">https://github.com/zhy2002/EventTracker</a></small>
+             <p><small>A demo web project based on <a href="http://www.pluralsight.com/courses/spring-mvc4-introduction">Introduction to Spring MVC 4</a></small> course on Pluralsight.</p>
+             <p><small>Source code: <a href="https://github.com/zhy2002/EventTracker">https://github.com/zhy2002/EventTracker</a></small></p>
             </div>
         </div>
 

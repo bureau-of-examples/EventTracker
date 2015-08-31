@@ -35,7 +35,7 @@ public class EventServiceImpl implements EventService {
     public void setCurrent(long eventId) {
 
         synchronized (listLock){
-            LinkedList<Event> eventList = getEvenTList();
+            LinkedList<Event> eventList = getEventList();
 
             Iterator<Event> iterator = eventList.iterator();
             while (iterator.hasNext()){
@@ -53,7 +53,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @SuppressWarnings("unchecked")
-    private LinkedList<Event> getEvenTList() {
+    private LinkedList<Event> getEventList() {
         LinkedList<Event> eventList = (LinkedList<Event>)session.getAttribute("eventList");
         if(eventList == null){
             eventList = new LinkedList<>();
@@ -66,7 +66,7 @@ public class EventServiceImpl implements EventService {
     public void saveEvent(Event event) {
 
         synchronized (listLock){
-            LinkedList<Event> eventList = getEvenTList();
+            LinkedList<Event> eventList = getEventList();
             if(event.getId() == null){
                 event.setId(eventId++);
                 eventList.addLast(event);    //set new event as current
@@ -92,7 +92,7 @@ public class EventServiceImpl implements EventService {
         Event currentEvent = getCurrent();
 
         synchronized (listLock){
-            LinkedList<Event> eventList = getEvenTList();
+            LinkedList<Event> eventList = getEventList();
 
             Iterator<Event> iterator = eventList.iterator();
             while (iterator.hasNext()){
@@ -117,7 +117,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> getAll() {
         synchronized (listLock){
-            LinkedList<Event> eventList = getEvenTList();
+            LinkedList<Event> eventList = getEventList();
             return new ArrayList<>(eventList);
         }
     }
