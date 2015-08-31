@@ -1,9 +1,11 @@
 package com.pluralsight.service;
 
 
+import com.pluralsight.data.EventRepository;
 import com.pluralsight.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -11,7 +13,8 @@ import java.util.*;
 @Service("eventService")
 public class EventServiceImpl implements EventService {
 
-    private long eventId = 1L;
+    @Autowired
+    private EventRepository eventRepository;
 
     @Override
     public Event createNew() {
@@ -20,105 +23,58 @@ public class EventServiceImpl implements EventService {
         return event;
     }
 
-    @Override
-    public Event getCurrent() {
-       return (Event)session.getAttribute("event");
-    }
-
     @Autowired
     private HttpSession session;
 
-    private final Object listLock = new Object();
+    private static final String CURRENT_EVENT_ID_SESSION_KEY = "currentEventId";
 
+    @Transactional
+    @Override
+    public Event getCurrent() {
+        Long id = (Long)session.getAttribute(CURRENT_EVENT_ID_SESSION_KEY);
+        if(id == null)
+            return null;
 
+        return eventRepository.findOne(id);
+    }
+
+    @Transactional
     @Override
     public void setCurrent(long eventId) {
 
-        synchronized (listLock){
-            LinkedList<Event> eventList = getEventList();
+        if(!eventRepository.exists(eventId))
+            throw new IllegalArgumentException("Invalid event id " + eventId);
 
-            Iterator<Event> iterator = eventList.iterator();
-            while (iterator.hasNext()){
-                Event event = iterator.next();
-                if(event.getId().equals(eventId)){
-                    iterator.remove();
-                    eventList.addLast(event);
-                    session.setAttribute("event", event);
-                    return;
-                }
-            }
-        }
-
-        throw new IllegalArgumentException("Event Id " + eventId + " is invalid.");
+        session.setAttribute(CURRENT_EVENT_ID_SESSION_KEY, eventId);
     }
 
-    @SuppressWarnings("unchecked")
-    private LinkedList<Event> getEventList() {
-        LinkedList<Event> eventList = (LinkedList<Event>)session.getAttribute("eventList");
-        if(eventList == null){
-            eventList = new LinkedList<>();
-            session.setAttribute("eventList", eventList);
-        }
-        return eventList;
-    }
-
+    @Transactional
     @Override
     public void saveEvent(Event event) {
 
-        synchronized (listLock){
-            LinkedList<Event> eventList = getEventList();
-            if(event.getId() == null){
-                event.setId(eventId++);
-                eventList.addLast(event);    //set new event as current
-                session.setAttribute("event", event);
-                return;
-            }
-
-            ListIterator<Event> iterator = eventList.listIterator();
-            while (iterator.hasNext()){
-                Event e = iterator.next();
-                if(e.getId().equals(event.getId())){
-                    event.setAttendees(e.getAttendees());
-                    iterator.set(event);
-                    session.setAttribute("event", event);
-                    break;
-                }
-            }
-        }
+        eventRepository.save(event);
+        setCurrent(event.getId());
     }
 
+    @Transactional
     @Override
     public void deleteEvent(long eventId) {
-        Event currentEvent = getCurrent();
-
-        synchronized (listLock){
-            LinkedList<Event> eventList = getEventList();
-
-            Iterator<Event> iterator = eventList.iterator();
-            while (iterator.hasNext()){
-                Event event = iterator.next();
-                if(event.getId().equals(eventId)){
-                    iterator.remove();
-                    if(currentEvent == event){
-                        if(eventList.isEmpty()){
-                            session.setAttribute("event", null);
-                        } else {
-                            session.setAttribute("event", eventList.getLast());
-                        }
-                    }
-                    return;
-                }
-            }
+        eventRepository.delete(eventId);
+        Long currentEventId = (Long)session.getAttribute(CURRENT_EVENT_ID_SESSION_KEY);
+        if(currentEventId != null && currentEventId == eventId){
+            session.removeAttribute(CURRENT_EVENT_ID_SESSION_KEY);
         }
-
-        throw new IllegalArgumentException("Event Id " + eventId + " is invalid.");
     }
 
+    @Transactional
     @Override
     public List<Event> getAll() {
-        synchronized (listLock){
-            LinkedList<Event> eventList = getEventList();
-            return new ArrayList<>(eventList);
+        List<Event> list = new ArrayList<>();
+        Iterable<Event> result = eventRepository.findAll();
+        for(Event event : result){
+            event.getAttendees().size();//force lazy loading
+            list.add(event);
         }
+        return list;
     }
 }

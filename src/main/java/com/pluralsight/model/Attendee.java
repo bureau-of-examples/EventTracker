@@ -6,13 +6,23 @@ import com.pluralsight.view.Phone;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@Entity
 public class Attendee {
 
+    @Id
+    @NotEmpty(message = "Email is mandatory.")
+    @Size(min = 2)
+    @Email
+    private String email;
+
+    @NotNull
     @ObjectName
     private String name;
 
@@ -20,11 +30,6 @@ public class Attendee {
 
     @Past
     private Date dateOfBirth;
-
-    @NotEmpty(message = "Email is mandatory.")
-    @Size(min = 2)
-    @Email
-    private String email;
 
     @Phone
     private String phone;

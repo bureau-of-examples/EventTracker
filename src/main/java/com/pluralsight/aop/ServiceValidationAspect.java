@@ -1,13 +1,10 @@
 package com.pluralsight.aop;
 
-
-import com.pluralsight.validation.ObjectName;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolation;

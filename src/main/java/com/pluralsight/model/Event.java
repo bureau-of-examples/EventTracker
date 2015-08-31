@@ -5,16 +5,21 @@ import com.pluralsight.validation.ObjectName;
 import com.pluralsight.validation.ValidEvent;
 import com.pluralsight.validation.ValidUrl;
 import com.pluralsight.validation.group.BusinessLogicGroup;
+import org.hibernate.annotations.BatchSize;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 @ValidEvent(groups = {BusinessLogicGroup.class})
 public class Event {
 
+    @javax.persistence.Id
+    @GeneratedValue
     private Long Id;
 
     @ObjectName
@@ -29,8 +34,6 @@ public class Event {
     @EventDuration
     private Integer duration; //duration in minutes
 
-
-
     @ValidUrl.List({
             @ValidUrl(protocol = "http"),
             @ValidUrl(host = "baidu.com")
@@ -38,6 +41,8 @@ public class Event {
     private String url;
 
 
+    @ManyToMany()
+    @BatchSize(size = 10)
     private List<Attendee> attendees = new ArrayList<>();
 
     public Long getId() {

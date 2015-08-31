@@ -21,7 +21,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
         WebApplicationContext context = createRootApplicationContext(servletContext);
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("springDispatcherServlet", new DispatcherServlet(context));
-        dispatcher.addMapping("*.html", "/pdf/**" ,"/css/**", "*.json", "*.xml");
+        dispatcher.addMapping("/pdf/*" ,"/css/*", "*.html", "*.json", "*.xml");
         dispatcher.setLoadOnStartup(0);
     }
 

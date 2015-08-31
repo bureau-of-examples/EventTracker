@@ -49,6 +49,7 @@ public class ValidationTest {
     public void beanValidationTest(){
         Attendee attendee = new Attendee();
         attendee.setEmail("a");
+        attendee.setName("B");
         BeanPropertyBindingResult result = new BeanPropertyBindingResult(attendee, "attendee");
         localValidatorFactoryBean.validate(attendee, result);
         assertEquals(3, result.getErrorCount());
