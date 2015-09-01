@@ -77,4 +77,12 @@ public class EventServiceImpl implements EventService {
         }
         return list;
     }
+
+    @Transactional
+    @Override
+    public Event getOne(long id){
+       Event event = eventRepository.findOne(id);
+        event.getAttendees().size(); //force lazy loading
+        return event;
+    }
 }

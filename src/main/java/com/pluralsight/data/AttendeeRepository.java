@@ -1,12 +1,11 @@
 package com.pluralsight.data;
 
 import com.pluralsight.model.Attendee;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Attendee repository.
  */
-public interface AttendeeRepository extends PagingAndSortingRepository<Attendee, String>{
+public interface AttendeeRepository extends JpaRepository<Attendee, String> {
 
 }

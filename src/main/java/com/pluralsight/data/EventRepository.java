@@ -1,12 +1,11 @@
 package com.pluralsight.data;
 
 import com.pluralsight.model.Event;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Event repository.
  */
-public interface EventRepository extends PagingAndSortingRepository<Event, Long>{
+public interface EventRepository extends JpaRepository<Event, Long> {
 
 }

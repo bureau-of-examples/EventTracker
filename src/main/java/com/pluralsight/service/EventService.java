@@ -19,4 +19,6 @@ public interface EventService {
 
     List<Event> getAll();
 
+    Event getOne(long id);
+
 }

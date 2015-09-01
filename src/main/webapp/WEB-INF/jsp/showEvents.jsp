@@ -1,10 +1,10 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:page pageTitle="All events" useAngular="true" useJQuery="true">
     <div class="row" data-ng-app="myApp">
         <div class="col-md-12" data-ng-controller="events">
 
             <p>Angular says: 1 + 1 = {{1+1}}</p>
-            <p>The last one is the current event.</p>
 
             <table class="table table-striped">
                 <thead>
@@ -17,8 +17,10 @@
                 </tr>
                 </thead>
                 <tbody>
+                <c:url var="details" value="/eventDetails.html?id={{event.id}}" />
                 <tr data-ng-repeat="event in events">
-                    <td>  {{event.name}} <span class="glyphicon glyphicon-arrow-left" data-ng-show="{{event.id == currentEventId}}"></span></td>
+
+                    <td>  <a href="${details}">{{event.name}}</a> <span class="glyphicon glyphicon-arrow-left" data-ng-show="{{event.id == currentEventId}}"></span></td>
                     <td>{{event.date | date : 'dd/MM/yyyy hh:mm'}}</td>
                     <td>{{event.location}}</td>
                     <td>{{event.attendees.length}}</td>

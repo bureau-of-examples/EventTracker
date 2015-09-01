@@ -3,6 +3,7 @@ package com.pluralsight.controller;
 import com.pluralsight.model.Attendee;
 import com.pluralsight.model.Event;
 import com.pluralsight.service.AttendeeService;
+import com.pluralsight.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,20 @@ public class AttendeeController {
     @RequestMapping(value = "/attendee", method = RequestMethod.GET)
     public String attendee(Model model){
 
+        Event event = eventService.getCurrent();
+        if(event == null){
+            return "redirect:showEvents.html";
+        }
+
         model.addAttribute(new Attendee());
         return "attendee";
     }
 
     @Autowired
     private AttendeeService attendeeService;
+
+    @Autowired
+    private EventService eventService;
 
     @RequestMapping(value = "/attendee", method = RequestMethod.POST)
     public String attendee(@Valid @ModelAttribute Attendee attendee, BindingResult bindingResult, HttpSession session){
@@ -36,7 +45,10 @@ public class AttendeeController {
             return "attendee";
         }
 
-        Event event = (Event)session.getAttribute("event");
+        Event event = eventService.getCurrent();
+        if(event == null){
+            return "redirect:showEvents.html";
+        }
         attendeeService.addToEvent(attendee, event);
         return "redirect:index.html";
     }

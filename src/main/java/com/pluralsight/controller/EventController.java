@@ -32,7 +32,7 @@ public class EventController {
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/event", method = RequestMethod.GET)
-    public String displayEvent(Model model, @RequestParam(value = "add", required = false) Boolean addNew) {
+    public String addEvent(Model model, @RequestParam(value = "add", required = false) Boolean addNew) {
 
         boolean add = Boolean.TRUE.equals(addNew);
         Event event = eventService.getCurrent();
@@ -47,7 +47,7 @@ public class EventController {
     private SpringValidatorAdapter mvcValidator;
 
     @RequestMapping(value = "/event", method = RequestMethod.POST)
-    public String displayEvent(@Valid @ModelAttribute("event") Event event, BindingResult bindingResult) {
+    public String addEvent(@Valid @ModelAttribute("event") Event event, BindingResult bindingResult) {
 
         if (!bindingResult.hasErrors()) {
             ValidationUtils.invokeValidator(mvcValidator, event, bindingResult, BusinessLogicGroup.class);
@@ -87,6 +87,16 @@ public class EventController {
 
         model.addAttribute("currentEventId", currentEventId);
         return "showEvents";
+    }
+
+    @RequestMapping(value = "eventDetails", method = RequestMethod.GET)
+    public String eventDetails(@RequestParam("id")long id, Model model){
+        Event event = eventService.getOne(id);
+        if(event == null)
+            throw new RuntimeException("Cannot find event with id " + id);
+
+        model.addAttribute("event", event);
+        return "eventDetails";
     }
 
 }

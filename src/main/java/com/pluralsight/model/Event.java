@@ -5,9 +5,11 @@ import com.pluralsight.validation.ObjectName;
 import com.pluralsight.validation.ValidEvent;
 import com.pluralsight.validation.ValidUrl;
 import com.pluralsight.validation.group.BusinessLogicGroup;
-import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class Event {
 
 
     @ManyToMany()
+    @Cascade(CascadeType.ALL)
     @BatchSize(size = 10)
     private List<Attendee> attendees = new ArrayList<>();
 
